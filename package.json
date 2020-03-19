@@ -1,0 +1,14 @@
+{
+  "name": "aws_vs_test",
+  "version": "1.0.0",
+  "description": "This is app for comparing speed between Normal node.js app vs lamda feature of aws",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "StormShadow",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
