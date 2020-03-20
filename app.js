@@ -1,31 +1,47 @@
 var express = require('express');
-var {mongoose}=require('./Files/mongoose');
-var {Task}=require('./Files/Task');
+var Data=require('./Files/Data');
+require('./Files/mongoose');
 
 var app=express();
 
 app.use(express.json());
 
 
-app.get('/',(req,res)=>{
-    res.send({
-        status:200
-    });
+app.get('/id/:id',(req,res)=>{
+
+
+    Data.find({id:req.params.id})
+    .then((result)=>{
+        console.log(result);
+        res.send(result);
+    }).catch((e)=>{
+        console.log("Error:"+e);
+        res.send({
+            status:'error'
+        })
+    })
+
 });
 
-app.post('/',(req,res)=>{
-
-    var ntask=new Task({
-        name:req.body.title
-    })
+app.get('/cnumber/:no',(req,res)=>{
     
-    ntask.save().then((result)=>{
+    Data.find({certificate_number:req.params.no})
+    .then((result)=>{
+        console.log(result);
         res.send(result);
-    }).catch((error)=>{
+    }).catch((e)=>{
+        console.log("Error:"+e);
         res.send({
-            Error:error
-        });
+            status:'error'
+        })
     });
+    
+});
+
+app.get('*',(req,res)=>{
+    res.send({
+        Error:"Page does not exist"
+    }).status(404);
 });
 
 app.listen(3000,()=>{
